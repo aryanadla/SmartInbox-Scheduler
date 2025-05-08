@@ -1,7 +1,5 @@
 # SmartInbox-Scheduler
 
-# SmartInbox Scheduler
-
 An AI-powered personal assistant built with **N8N** that classifies incoming emails (Work, Personal, Tour, Other) and automatically schedules meetings/events using **Gmail** and **Google Calendar**. Designed for small to medium-sized businesses to streamline communication and scheduling with no manual effort.
 
 ---
@@ -26,11 +24,10 @@ An AI-powered personal assistant built with **N8N** that classifies incoming ema
 - **JSON** (Data Exchange Format)
 - **No-Code Platform**
 
----
 
 ## 🔧 Setup & Access
 
-**1️⃣ Clone the Repository:**
+### Clone the Repository:
 
 ```bash
 git clone https://github.com/aryanadla/SmartInbox-Scheduler.git
