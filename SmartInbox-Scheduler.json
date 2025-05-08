@@ -1,0 +1,565 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {
+          "q": ""
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5f4ec24c-36fb-4794-a351-f913da6518ef",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ieops7ePO1Kl8SCj",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.subject }}\n{{ $json.text }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Work",
+              "description": "If the email looks like it's work at the office and more professional related and not spam or personal or not travelling or attending any conference for speaking and events related"
+            },
+            {
+              "category": "Personal",
+              "description": "If the email looks like it's personal message and not spam or from someone suspicious"
+            },
+            {
+              "category": "Tour",
+              "description": "If the email looks like it's related to travelling on tour, speaking at conferences and events etc."
+            },
+            {
+              "category": "Other",
+              "description": "If the email does not fit into any of the other categories"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "ddef02e9-7145-4ced-bc1a-757faf73851a",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        320,
+        220
+      ],
+      "id": "dbeb5656-5754-434c-8e76-12bcfa9725f7",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "AmfzGBUny5hKWBby",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_4959978131202639163"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        780,
+        -120
+      ],
+      "id": "ff2f4a91-d995-4ff1-a637-58cc4a428704",
+      "name": "Gmail",
+      "webhookId": "46e3051b-2625-4e37-a0cb-5410bdf9ae6b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ieops7ePO1Kl8SCj",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_7095076246736945422"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        -260
+      ],
+      "id": "7b1786dd-33d7-476e-bc8a-9f74f98abca0",
+      "name": "Gmail1",
+      "webhookId": "2c1d5f7f-6917-4ab1-8c6c-2d1805f3b716",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ieops7ePO1Kl8SCj",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_6716801289700181282"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        780,
+        100
+      ],
+      "id": "615d716d-71a8-459e-b411-423dc232079e",
+      "name": "Gmail2",
+      "webhookId": "f6448670-71b3-4403-b39c-c9df7285ced6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ieops7ePO1Kl8SCj",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_5708492481996556042"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        580,
+        280
+      ],
+      "id": "3de61b10-fbdb-4ffd-867f-337f89406dc5",
+      "name": "Gmail3",
+      "webhookId": "20519a7b-fda1-4a24-bddd-6c957811ee44",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ieops7ePO1Kl8SCj",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "you are an assistant responding to emails on behalf of me. write back in a very casual, but professional tone. you can respond by referencing the sender's name. don't sign off on the email."
+            },
+            {
+              "content": "Hey Alex, can we catch up sometime this week for a quick sync?"
+            },
+            {
+              "content": "Hey Alex, sure! I'm free Thursday afternoon or Friday morning—let me know what works best.",
+              "role": "assistant"
+            },
+            {
+              "content": "Hi Alex, could you send me the final version of the proposal?"
+            },
+            {
+              "content": "Hi Alex, just sent over the final version of the proposal—let me know if anything needs tweaking.",
+              "role": "assistant"
+            },
+            {
+              "content": "Hey Alex, just checking if you saw my last message."
+            },
+            {
+              "content": "Hey Alex, sorry for the delay—just saw your message and will get back to you shortly.",
+              "role": "assistant"
+            },
+            {
+              "content": "={{ $json.threadId }}\n{{ $('Text Classifier').item.json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1020,
+        -120
+      ],
+      "id": "25eef69b-57b6-41f8-9f19-10a8b4054f27",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "xes2v66RtlqYYOfV",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail').item.json.id }}",
+        "message": "={{ $json.message.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1380,
+        -120
+      ],
+      "id": "5f678649-38a0-425f-8ef5-4402fc92897e",
+      "name": "Gmail4",
+      "webhookId": "450cfabe-5cbf-4598-815a-0d2d9aab9e33",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ieops7ePO1Kl8SCj",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "you are an assistant responding to emails on behalf of me. write back in a very casual, but professional tone. you can respond by referencing the sender's name. don't sign off on the email."
+            },
+            {
+              "content": "Hey Alex, can we catch up sometime this week for a quick sync?"
+            },
+            {
+              "content": "Hey Alex, sure! I'm free Thursday afternoon or Friday morning—let me know what works best.",
+              "role": "assistant"
+            },
+            {
+              "content": "Hi Alex, could you send me the final version of the proposal?"
+            },
+            {
+              "content": "Hi Alex, just sent over the final version of the proposal—let me know if anything needs tweaking.",
+              "role": "assistant"
+            },
+            {
+              "content": "Hey Alex, just checking if you saw my last message."
+            },
+            {
+              "content": "Hey Alex, sorry for the delay—just saw your message and will get back to you shortly.",
+              "role": "assistant"
+            },
+            {
+              "content": "={{ $json.threadId }}\n{{ $('Text Classifier').item.json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1020,
+        -380
+      ],
+      "id": "fbbe543a-9c1d-4a0d-881c-c64380febdee",
+      "name": "OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "xes2v66RtlqYYOfV",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail1').item.json.id }}",
+        "message": "={{ $json.message.content }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1380,
+        -380
+      ],
+      "id": "43a983e4-1099-44c5-b56b-0276290ddca9",
+      "name": "Gmail5",
+      "webhookId": "450cfabe-5cbf-4598-815a-0d2d9aab9e33",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ieops7ePO1Kl8SCj",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "aryanadlaiith@gmail.com",
+          "mode": "list",
+          "cachedResultName": "aryanadlaiith@gmail.com"
+        },
+        "start": "2025-05-10T16:00:00",
+        "end": "2025-05-10T18:00:00",
+        "additionalFields": {
+          "description": "={{ $json.description }}",
+          "location": "={{ $json.location }}",
+          "summary": "={{ $json.description }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1560,
+        260
+      ],
+      "id": "32811c78-4830-45f6-80a5-c185d22b517e",
+      "name": "Google Calendar",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "YjXx8fIcbTpyMXAM",
+          "name": "Google Calendar account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Extract all events from the following text and list with date, time location and description and ignore any irrelevant information\n\n{{ $('Gmail Trigger').item.json.headers.subject }}\n\n{{ $('Text Classifier').item.json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1000,
+        100
+      ],
+      "id": "8878c5e1-a68c-434f-96c6-c31fd40b6287",
+      "name": "OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "xes2v66RtlqYYOfV",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Sample input: replace this with dynamic data in your environment\nconst items = [\n  {\n    message: {\n      role: \"assistant\",\n      content: \"Here is the extracted event information from the text:\\n\\n- **Date:** 10th May 2025\\n- **Time:** 4 PM to 6 PM\\n- **Location:** Westin Hotel, Hyderabad\\n- **Description:** Speaking at IEEE Conference Event\"\n    }\n  }\n];\n\n// Final output array\nconst output = [];\n\nfor (const item of items) {\n  const openAIResponse = item.message?.content || '';\n\n  // Define flexible regex patterns\n  const dateMatch = openAIResponse.match(/\\*\\*Date:\\*\\*\\s*(.+)/);\n  const timeMatch = openAIResponse.match(/\\*\\*Time:\\*\\*\\s*(.+)/);\n  const locationMatch = openAIResponse.match(/\\*\\*Location:\\*\\*\\s*(.+)/);\n  const descriptionMatch = openAIResponse.match(/\\*\\*Description:\\*\\*\\s*(.+)/);\n\n  // Push structured result only if required data exists\n  output.push({\n    date: dateMatch ? dateMatch[1].trim() : null,\n    time: timeMatch ? timeMatch[1].trim() : null,\n    location: locationMatch ? locationMatch[1].trim() : null,\n    description: descriptionMatch ? descriptionMatch[1].trim() : null\n  });\n}\n\n// Return the final output\nreturn output;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        100
+      ],
+      "id": "4010a511-f28e-4614-83f2-2b3a57ae96a9",
+      "name": "Code",
+      "alwaysOutputData": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Gmail1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gmail2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gmail3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail2": {
+      "main": [
+        [
+          {
+            "node": "OpenAI2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Gmail4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail1": {
+      "main": [
+        [
+          {
+            "node": "OpenAI1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI1": {
+      "main": [
+        [
+          {
+            "node": "Gmail5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI2": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1ff827c0-eb76-4934-a70b-4f7463339cc9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1e42e6650ba49da44150f1649f56a11b8a69f1dea15a4cb08bb0311c8dd0ef9b"
+  },
+  "id": "tXalMA5VevUEEsWW",
+  "tags": []
+}
