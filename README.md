@@ -30,7 +30,9 @@ An AI-powered personal assistant built with **N8N** that classifies incoming ema
 ### Clone the Repository:
 
 ```bash
+
 git clone https://github.com/aryanadla/SmartInbox-Scheduler.git
 
+![AI_Workflow](https://github.com/user-attachments/assets/1ef88cbe-5365-44c4-a1e1-6657f3e90556)
 
 
