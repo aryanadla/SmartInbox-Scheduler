@@ -1,4 +1,5 @@
 # SmartInbox-Scheduler
+![AI_Workflow](https://github.com/user-attachments/assets/f62fa386-c9bd-4ec8-88ee-2dcccc3b98f4)
 
 An AI-powered personal assistant built with **N8N** that classifies incoming emails (Work, Personal, Tour, Other) and automatically schedules meetings/events using **Gmail** and **Google Calendar**. Designed for small to medium-sized businesses to streamline communication and scheduling with no manual effort.
 
@@ -33,6 +34,6 @@ An AI-powered personal assistant built with **N8N** that classifies incoming ema
 
 git clone https://github.com/aryanadla/SmartInbox-Scheduler.git
 
-![AI_Workflow](https://github.com/user-attachments/assets/1ef88cbe-5365-44c4-a1e1-6657f3e90556)
+
 
 
